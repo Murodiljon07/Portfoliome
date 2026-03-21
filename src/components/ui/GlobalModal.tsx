@@ -1,4 +1,7 @@
 "use client";
+import { useRouter } from "next/navigation";
+
+import { authService } from "@/services/auth.service";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
@@ -11,6 +14,13 @@ import ProjectForm from "../forms/ProjectForm";
 import SkillForm from "../forms/SkillForm";
 
 export default function GlobalModal() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    authService.logout();
+    router.push("/auth/login");
+  };
+
   const dispatch = useDispatch();
   const { isOpen, type, payload } = useSelector(
     (state: RootState) => state.modal,
@@ -32,6 +42,10 @@ export default function GlobalModal() {
 
               <Button
                 onClick={() => {
+                  if (payload.onConfirm == "onLogout") {
+                    handleLogout();
+                  }
+
                   payload?.onConfirm();
                   dispatch(closeModal());
                 }}
@@ -91,19 +105,16 @@ export default function GlobalModal() {
           : "opacity-0 invisible pointer-events-none"
       }`}
     >
-      {/* Overlay */}
       <div
         onClick={() => dispatch(closeModal())}
         className="absolute inset-0 bg-black/40"
       />
 
-      {/* Modal box */}
       <div
         className={`bg-white p-6 rounded-xl w-full max-w-lg relative shadow-lg transform transition-all duration-300 ${
           isOpen ? "scale-100 opacity-100" : "scale-90 opacity-0"
         }`}
       >
-        {/* Close button */}
         <button
           onClick={() => dispatch(closeModal())}
           className="absolute top-3 right-3 text-gray-500 hover:text-black"

@@ -1,8 +1,6 @@
 "use client";
 
 import AdminAside from "@/components/layout/AdminAside";
-import { useRouter } from "next/navigation";
-import { authService } from "@/services/auth.service";
 import GlobalModal from "@/components/ui/GlobalModal";
 
 export default function AdminLayout({
@@ -10,16 +8,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    authService.logout();
-    router.push("/auth/login");
-  };
-
   return (
     <div className="min-h-screen bg-[#f8f8f8] text-black font-serif">
-      <AdminAside onLogout={handleLogout} />
+      <AdminAside />
 
       <main className="ml-64 p-10">{children}</main>
       <GlobalModal />

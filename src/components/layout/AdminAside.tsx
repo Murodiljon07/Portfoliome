@@ -8,7 +8,7 @@ import { paths } from "../../data/pathData";
 import { useDispatch } from "react-redux";
 import { openModal } from "@/store/features/ModalSlice";
 
-export default function AdminAside({ onLogout }: { onLogout: () => void }) {
+export default function AdminAside() {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
@@ -74,7 +74,7 @@ export default function AdminAside({ onLogout }: { onLogout: () => void }) {
               openModal({
                 type: "confirm",
                 payload: {
-                  onConfirm: onLogout,
+                  onConfirm: "onLogout",
                   message: "Are you sure you want to logout?",
                 },
               }),
