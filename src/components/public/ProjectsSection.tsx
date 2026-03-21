@@ -39,12 +39,11 @@ export default function ProjectsSection() {
         {/* GRID */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, i) => {
-            let {
+            const {
               demo_link,
               description,
               id,
               image,
-              order,
               repo_link,
               technologies,
               title,
@@ -68,7 +67,7 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* CONTENT */}
-                <div className="p-5 space-y-3">
+                <div className="p-5 space-y-3 relative z-10">
                   <h3 className="text-xl font-semibold line-clamp-1">
                     {title}
                   </h3>
@@ -95,6 +94,7 @@ export default function ProjectsSection() {
                       <a
                         href={demo_link}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="cursor-pointer px-4 py-2 text-sm rounded-full bg-black text-white hover:bg-red-500 transition"
                       >
                         Live
@@ -105,6 +105,7 @@ export default function ProjectsSection() {
                       <a
                         href={repo_link}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="cursor-pointer px-4 py-2 text-sm rounded-full border border-black hover:bg-black hover:text-white transition"
                       >
                         Code
@@ -113,8 +114,8 @@ export default function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* HOVER OVERLAY */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition" />
+                {/* HOVER OVERLAY (FIXED) */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition pointer-events-none z-0" />
               </div>
             );
           })}

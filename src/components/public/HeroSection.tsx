@@ -96,6 +96,7 @@ export default function Hero() {
 
             {data?.cv_link && (
               <a
+                download
                 href={data.cv_link}
                 target="_blank"
                 className="px-6 py-3 border border-black rounded-full hover:bg-black hover:text-white transition hover:scale-105"
@@ -124,7 +125,7 @@ export default function Hero() {
           </div>
 
           {/* badge */}
-          <div className="absolute bottom-6 right-6 bg-red-500 text-white px-4 py-2 rounded-full text-xs animate-bounce shadow-lg">
+          <div className="absolute bottom-6 right-6 bg-red-500 text-white px-4 py-2 rounded-full text-xs animate-bounce shadow-lg z-100">
             ONLINE
           </div>
         </div>
