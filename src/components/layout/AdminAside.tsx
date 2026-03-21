@@ -21,7 +21,6 @@ export default function AdminAside() {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
-  // normalize current path (e.g. /admin/projects -> projects)
   const currentPath = pathname.split("/").filter(Boolean).pop();
 
   return (

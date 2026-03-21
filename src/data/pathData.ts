@@ -22,16 +22,7 @@ export const paths: Path[] = [
     href: "about",
     icon: UserIcon,
   },
-  {
-    name: "Contact",
-    href: "contact",
-    icon: PhoneIcon,
-  },
-  {
-    name: "Experience",
-    href: "experience",
-    icon: BriefcaseIcon,
-  },
+
   {
     name: "Projects",
     href: "projects",
@@ -42,6 +33,19 @@ export const paths: Path[] = [
     href: "skills",
     icon: WrenchScrewdriverIcon,
   },
+
+  {
+    name: "Experience",
+    href: "experience",
+    icon: BriefcaseIcon,
+  },
+
+  {
+    name: "Contact",
+    href: "contact",
+    icon: PhoneIcon,
+  },
+
   {
     name: "Settings",
     admin: "setting",
