@@ -3,6 +3,7 @@
 import AdminAside from "@/components/layout/AdminAside";
 import { useRouter } from "next/navigation";
 import { authService } from "@/services/auth.service";
+import GlobalModal from "@/components/ui/GlobalModal";
 
 export default function AdminLayout({
   children,
@@ -21,6 +22,7 @@ export default function AdminLayout({
       <AdminAside onLogout={handleLogout} />
 
       <main className="ml-64 p-10">{children}</main>
+      <GlobalModal />
     </div>
   );
 }

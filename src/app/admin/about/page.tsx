@@ -25,7 +25,6 @@ export default function AboutAdminPage() {
   }, []);
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Delete this item?")) return;
     await aboutService.remove(id);
     fetchData();
   };
@@ -70,11 +69,21 @@ export default function AboutAdminPage() {
                 <td className="p-2 border">{item.role}</td>
                 <td className="p-2 border space-x-2">
                   <div className="flex justify-center gap-2">
-                    <Button handelStye="w-[50px] px-3 py-1 bg-blue-500 text-white rounded">
+                    <Button
+                      onClick={() => dispatch(openModal({ type: "about" }))}
+                      handelStye="w-[50px] px-3 py-1 bg-blue-500 text-white rounded"
+                    >
                       Edit
                     </Button>
                     <Button
-                      onClick={() => handleDelete(item.id)}
+                      onClick={() =>
+                        dispatch(
+                          openModal({
+                            type: "confirm",
+                            payload: { onConfirm: () => handleDelete(item.id) },
+                          }),
+                        )
+                      }
                       handelStye="w-[50px] px-3 py-1 bg-red-500 text-white rounded"
                     >
                       Delete

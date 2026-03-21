@@ -19,7 +19,7 @@ export default function AdminAside({ onLogout }: { onLogout: () => void }) {
       </div>
 
       {/* NAV */}
-      <nav className="mt-10 space-y-2">
+      <nav className="mt-10 space-y-2 grow-1">
         {paths.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
