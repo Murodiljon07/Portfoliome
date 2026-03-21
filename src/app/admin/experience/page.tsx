@@ -31,20 +31,20 @@ export default function ExperienceAdminPage() {
 
   return (
     <div>
-      {/* HEADER */}
       <div className="flex justify-between mb-4">
         <h1 className="text-xl font-semibold">Experiences</h1>
 
         <Button
           handelStye="w-[80px]"
           variant="primary"
-          onClick={() => dispatch(openModal({ type: "experience" }))}
+          onClick={() =>
+            dispatch(openModal({ type: "experience", payload: null }))
+          }
         >
           + Add
         </Button>
       </div>
 
-      {/* TABLE */}
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -67,7 +67,7 @@ export default function ExperienceAdminPage() {
                 <td className="p-2 border">{item.start_date}</td>
                 <td className="p-2 border">{item.end_date || "-"}</td>
 
-                <td className="p-2 border space-x-2">
+                <td className="p-2 border">
                   <div className="flex justify-center gap-2">
                     <Button
                       onClick={() =>
@@ -78,7 +78,7 @@ export default function ExperienceAdminPage() {
                           }),
                         )
                       }
-                      handelStye="w-[50px] px-3 py-1 bg-blue-500 text-white rounded"
+                      handelStye="px-3 py-1 bg-blue-500 text-white rounded"
                     >
                       Edit
                     </Button>
@@ -94,7 +94,7 @@ export default function ExperienceAdminPage() {
                           }),
                         )
                       }
-                      handelStye="w-[50px] px-3 py-1 bg-red-500 text-white rounded"
+                      handelStye="px-3 py-1 bg-red-500 text-white rounded"
                     >
                       Delete
                     </Button>

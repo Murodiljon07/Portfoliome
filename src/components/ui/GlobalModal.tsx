@@ -6,6 +6,9 @@ import { closeModal } from "@/store/features/ModalSlice";
 import AboutForm from "@/components/forms/AboutForm";
 import Button from "./Button";
 import ContactView from "../forms/ContactView";
+import ExperienceForm from "../forms/ExperienceForm";
+import ProjectForm from "../forms/ProjectForm";
+import SkillForm from "../forms/SkillForm";
 
 export default function GlobalModal() {
   const dispatch = useDispatch();
@@ -46,6 +49,30 @@ export default function GlobalModal() {
       case "about":
         return (
           <AboutForm
+            initialData={payload}
+            onSuccess={() => dispatch(closeModal())}
+          />
+        );
+
+      case "experience":
+        return (
+          <ExperienceForm
+            initialData={payload}
+            onSuccess={() => dispatch(closeModal())}
+          />
+        );
+
+      case "project":
+        return (
+          <ProjectForm
+            initialData={payload}
+            onSuccess={() => dispatch(closeModal())}
+          />
+        );
+
+      case "skill":
+        return (
+          <SkillForm
             initialData={payload}
             onSuccess={() => dispatch(closeModal())}
           />

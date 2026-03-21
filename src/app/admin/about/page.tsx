@@ -37,7 +37,7 @@ export default function AboutAdminPage() {
         <Button
           handelStye="w-[80px]"
           variant="primary"
-          onClick={() => dispatch(openModal({ type: "about" }))}
+          onClick={() => dispatch(openModal({ type: "about", payload: null }))}
         >
           + Add
         </Button>
@@ -70,7 +70,9 @@ export default function AboutAdminPage() {
                 <td className="p-2 border space-x-2">
                   <div className="flex justify-center gap-2">
                     <Button
-                      onClick={() => dispatch(openModal({ type: "about" }))}
+                      onClick={() =>
+                        dispatch(openModal({ type: "about", payload: item }))
+                      }
                       handelStye="w-[50px] px-3 py-1 bg-blue-500 text-white rounded"
                     >
                       Edit
@@ -80,7 +82,10 @@ export default function AboutAdminPage() {
                         dispatch(
                           openModal({
                             type: "confirm",
-                            payload: { onConfirm: () => handleDelete(item.id) },
+                            payload: {
+                              onConfirm: () => handleDelete(item.id),
+                              message: `Do you really want to delete it?`,
+                            },
                           }),
                         )
                       }

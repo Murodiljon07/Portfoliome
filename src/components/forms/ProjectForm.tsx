@@ -3,21 +3,23 @@
 import { useEffect, useState } from "react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import { aboutService } from "@/services/about.service";
-import { About } from "@/interface/types/about.types";
+import { projectService } from "@/services/project.service";
+import { Project } from "@/interface/types/projects.types";
 
 type Props = {
-  initialData?: About | null;
+  initialData?: Project | null;
   onSuccess: () => void;
 };
 
-export default function AboutForm({ initialData, onSuccess }: Props) {
+export default function ProjectForm({ initialData, onSuccess }: Props) {
   const [form, setForm] = useState({
-    name: "",
-    role: "",
-    bio: "",
+    title: "",
+    description: "",
+    technologies: "",
+    demo_link: "",
+    repo_link: "",
+    order: "",
     image: "",
-    cv_link: "",
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -26,11 +28,13 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
   useEffect(() => {
     if (initialData) {
       setForm({
-        name: initialData.name || "",
-        role: initialData.role || "",
-        bio: initialData.bio || "",
+        title: initialData.title || "",
+        description: initialData.description || "",
+        technologies: initialData.technologies || "",
+        demo_link: initialData.demo_link || "",
+        repo_link: initialData.repo_link || "",
+        order: String(initialData.order || ""),
         image: initialData.image || "",
-        cv_link: initialData.cv_link || "",
       });
     }
   }, [initialData]);
@@ -43,18 +47,7 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-    }
-  };
-
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-    });
+    if (file) setImageFile(file);
   };
 
   const handleSubmit = async () => {
@@ -63,26 +56,28 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
     try {
       const formData = new FormData();
 
-      formData.append("name", form.name);
-      formData.append("role", form.role);
-      formData.append("bio", form.bio);
-      formData.append("cv_link", form.cv_link);
+      formData.append("title", form.title);
+      formData.append("description", form.description);
+      formData.append("technologies", form.technologies);
+      formData.append("demo_link", form.demo_link);
+      formData.append("repo_link", form.repo_link);
+      formData.append("order", form.order);
 
       if (imageFile) {
         formData.append("image", imageFile);
       } else {
-        formData.append("image", form.image); // eski rasm
+        formData.append("image", form.image);
       }
 
       if (initialData) {
-        await aboutService.update(initialData.id, formData);
+        await projectService.update(initialData.id, formData);
       } else {
-        await aboutService.create(formData);
+        await projectService.create(formData);
       }
 
       onSuccess();
     } catch (err: any) {
-      console.log("ERROR:", err.response?.data);
+      console.log(err.response?.data);
     } finally {
       setLoading(false);
     }
@@ -91,37 +86,14 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
   return (
     <div className="space-y-4">
       <h2 className="text-lg font-semibold">
-        {initialData ? "Edit About" : "Create About"}
+        {initialData ? "Edit Project" : "Create Project"}
       </h2>
 
-      <Input
-        label="Name"
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-      />
-
-      <Input
-        label="Role"
-        name="role"
-        value={form.role}
-        onChange={handleChange}
-      />
-
-      <div>
-        <label className="text-sm font-medium">Bio</label>
-        <textarea
-          name="bio"
-          value={form.bio}
-          onChange={handleChange}
-          className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg"
-        />
-      </div>
-
+      {/* IMAGE */}
       <div className="space-y-2">
         <label className="text-sm font-medium">Image</label>
 
-        <label className="block mt-2 cursor-pointer w-fit">
+        <label className="block cursor-pointer w-fit">
           {imageFile || form.image ? (
             <div className="relative w-24 h-24">
               <img
@@ -139,7 +111,6 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
             </div>
           )}
 
-          {/* yashirin input */}
           <input
             type="file"
             accept="image/*"
@@ -150,9 +121,48 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
       </div>
 
       <Input
-        label="CV Link"
-        name="cv_link"
-        value={form.cv_link}
+        label="Title"
+        name="title"
+        value={form.title}
+        onChange={handleChange}
+      />
+
+      <div>
+        <label className="text-sm font-medium">Description</label>
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          className="w-full mt-1 px-3 py-2 border rounded-lg"
+        />
+      </div>
+
+      <Input
+        label="Technologies"
+        name="technologies"
+        value={form.technologies}
+        onChange={handleChange}
+      />
+
+      <Input
+        label="Demo Link"
+        name="demo_link"
+        value={form.demo_link}
+        onChange={handleChange}
+      />
+
+      <Input
+        label="Repo Link"
+        name="repo_link"
+        value={form.repo_link}
+        onChange={handleChange}
+      />
+
+      <Input
+        label="Order"
+        name="order"
+        type="number"
+        value={form.order}
         onChange={handleChange}
       />
 

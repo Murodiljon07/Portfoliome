@@ -13,3 +13,11 @@ export interface ExperienceListResponse {
   previous: string | null;
   results: Experience[];
 }
+
+export interface ExperienceFormData {
+  role: string;
+  company: string;
+  start_date: string;
+  end_date: string;
+  description: string;
+}

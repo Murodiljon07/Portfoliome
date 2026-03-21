@@ -5,7 +5,11 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { paths } from "../../data/pathData";
 
+import { useDispatch } from "react-redux";
+import { openModal } from "@/store/features/ModalSlice";
+
 export default function AdminAside({ onLogout }: { onLogout: () => void }) {
+  const dispatch = useDispatch();
   const pathname = usePathname();
 
   return (
@@ -65,7 +69,17 @@ export default function AdminAside({ onLogout }: { onLogout: () => void }) {
       {/* FOOTER */}
       <div className="border-t border-gray-200 pt-5">
         <button
-          onClick={onLogout}
+          onClick={() =>
+            dispatch(
+              openModal({
+                type: "confirm",
+                payload: {
+                  onConfirm: onLogout,
+                  message: "Are you sure you want to logout?",
+                },
+              }),
+            )
+          }
           className="group flex items-center gap-2 text-sm text-gray-500 hover:text-black transition-all duration-300"
         >
           <ArrowRightOnRectangleIcon className="w-4 h-4 transition-transform group-hover:translate-x-1 duration-300" />
