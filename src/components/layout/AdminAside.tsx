@@ -7,8 +7,6 @@ import { paths } from "../../data/pathData";
 
 export default function AdminAside({ onLogout }: { onLogout: () => void }) {
   const pathname = usePathname();
-  const inActive = location.pathname;
-  console.log(location);
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col justify-between p-6">
