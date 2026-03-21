@@ -13,6 +13,7 @@ type Props = {
 
 export default function ExperienceForm({ initialData, onSuccess }: Props) {
   const [form, setForm] = useState({
+    id: 0,
     role: "",
     company: "",
     start_date: "",
@@ -25,6 +26,7 @@ export default function ExperienceForm({ initialData, onSuccess }: Props) {
   useEffect(() => {
     if (initialData) {
       setForm({
+        id: initialData.id || 0,
         role: initialData.role || "",
         company: initialData.company || "",
         start_date: initialData.start_date || "",
