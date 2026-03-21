@@ -30,12 +30,13 @@ export default function AboutAdminPage() {
   };
 
   return (
-    <div>
-      <div className="flex justify-between mb-4">
-        <h1 className="text-xl font-semibold">About</h1>
+    <div className="space-y-6">
+      {/* HEADER */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-semibold tracking-tight">About</h1>
 
         <Button
-          handelStye="w-[80px]"
+          handelStye="px-5 py-2.5 text-sm"
           variant="primary"
           onClick={() => dispatch(openModal({ type: "about", payload: null }))}
         >
@@ -43,63 +44,81 @@ export default function AboutAdminPage() {
         </Button>
       </div>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <table className="w-full border border-gray-300 bg-white">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-2 border">Image</th>
-              <th className="p-2 border">Name</th>
-              <th className="p-2 border">Role</th>
-              <th className="p-2 border">Actions</th>
+      {/* TABLE */}
+      <div className="rounded-2xl overflow-hidden bg-white/40 backdrop-blur-xl border border-white/50 shadow-sm">
+        <table className="w-full text-sm">
+          <thead className="bg-white/60 border-b border-white/40">
+            <tr className="text-left text-gray-600">
+              <th className="p-5">Image</th>
+              <th className="p-5">Name</th>
+              <th className="p-5">Role</th>
+              <th className="p-5 text-center">Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {data.map((item) => (
-              <tr key={item.id} className="text-center">
-                <td className="p-2 border">
-                  <img
-                    src={item.image}
-                    className="w-12 h-12 object-cover mx-auto rounded"
-                  />
-                </td>
-                <td className="p-2 border">{item.name}</td>
-                <td className="p-2 border">{item.role}</td>
-                <td className="p-2 border space-x-2">
-                  <div className="flex justify-center gap-2">
-                    <Button
-                      onClick={() =>
-                        dispatch(openModal({ type: "about", payload: item }))
-                      }
-                      handelStye="w-[50px] px-3 py-1 bg-blue-500 text-white rounded"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        dispatch(
-                          openModal({
-                            type: "confirm",
-                            payload: {
-                              onConfirm: () => handleDelete(item.id),
-                              message: `Do you really want to delete it?`,
-                            },
-                          }),
-                        )
-                      }
-                      handelStye="w-[50px] px-3 py-1 bg-red-500 text-white rounded"
-                    >
-                      Delete
-                    </Button>
-                  </div>
+            {loading ? (
+              <tr>
+                <td colSpan={4} className="text-center p-8 text-gray-500">
+                  Loading...
                 </td>
               </tr>
-            ))}
+            ) : (
+              data.map((item) => (
+                <tr
+                  key={item.id}
+                  className="border-b border-white/30 hover:bg-white/50 transition"
+                >
+                  {/* IMAGE */}
+                  <td className="p-5">
+                    <img
+                      src={item.image}
+                      className="w-14 h-14 object-cover rounded-xl mx-auto shadow-sm"
+                    />
+                  </td>
+
+                  {/* NAME */}
+                  <td className="p-5 text-base font-medium">{item.name}</td>
+
+                  {/* ROLE */}
+                  <td className="p-5 text-gray-600 text-base">{item.role}</td>
+
+                  {/* ACTIONS */}
+                  <td className="p-5">
+                    <div className="flex justify-center gap-3">
+                      <button
+                        onClick={() =>
+                          dispatch(openModal({ type: "about", payload: item }))
+                        }
+                        className="px-4 py-2 text-sm rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition shadow-sm flex items-center gap-1"
+                      >
+                        <span>Edit</span>
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            openModal({
+                              type: "confirm",
+                              payload: {
+                                onConfirm: () => handleDelete(item.id),
+                                message: "Do you really want to delete it?",
+                              },
+                            }),
+                          )
+                        }
+                        className="px-4 py-2 text-sm rounded-xl bg-red-500 text-white hover:bg-red-600 transition shadow-sm flex items-center gap-1"
+                      >
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
-      )}
+      </div>
     </div>
   );
 }

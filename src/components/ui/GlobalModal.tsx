@@ -1,7 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
-
-import { authService } from "@/services/auth.service";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
@@ -14,13 +11,6 @@ import ProjectForm from "../forms/ProjectForm";
 import SkillForm from "../forms/SkillForm";
 
 export default function GlobalModal() {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    authService.logout();
-    router.push("/auth/login");
-  };
-
   const dispatch = useDispatch();
   const { isOpen, type, payload } = useSelector(
     (state: RootState) => state.modal,
@@ -42,10 +32,6 @@ export default function GlobalModal() {
 
               <Button
                 onClick={() => {
-                  if (payload.onConfirm == "onLogout") {
-                    handleLogout();
-                  }
-
                   payload?.onConfirm();
                   dispatch(closeModal());
                 }}

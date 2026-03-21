@@ -7,6 +7,7 @@ import {
   BriefcaseIcon,
   FolderIcon,
   WrenchScrewdriverIcon,
+  Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 
 export const paths: Path[] = [
@@ -40,5 +41,11 @@ export const paths: Path[] = [
     name: "Skills",
     href: "skills",
     icon: WrenchScrewdriverIcon,
+  },
+  {
+    name: "Settings",
+    admin: "setting",
+    icon: Cog6ToothIcon,
+    href: "/",
   },
 ];

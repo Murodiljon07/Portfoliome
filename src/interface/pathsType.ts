@@ -1,6 +1,6 @@
 export type Path = {
   admin?: string;
   name: string;
-  href: string;
+  href: string | "/";
   icon: React.ElementType;
 };

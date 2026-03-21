@@ -51,6 +51,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4 lg:gap-6">
             {paths.map((item, i) => {
               const Icon = item.icon;
+
+              if (item.admin) {
+                return;
+              }
               const isActive = pathname === item.href;
 
               return (
@@ -104,12 +108,15 @@ export default function Navbar() {
         <div className="px-4 py-3 space-y-1">
           {paths.map((item, i) => {
             const Icon = item.icon;
+            if (item.admin) {
+              return;
+            }
             const isActive = pathname === item.href;
 
             return (
               <Link
                 key={i}
-                href={item.href}
+                href={`#${item.href}`}
                 onClick={() => setOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg transition
                 ${

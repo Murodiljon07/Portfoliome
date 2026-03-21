@@ -30,14 +30,14 @@ export default function ProjectAdminPage() {
   };
 
   return (
-    <div>
+    <div className="space-y-8">
       {/* HEADER */}
-      <div className="flex justify-between mb-6">
-        <h1 className="text-xl font-semibold">Projects</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-semibold tracking-tight">Projects</h1>
 
         <Button
           variant="primary"
-          handelStye="w-[80px]"
+          handelStye="px-5 py-2.5 text-sm"
           onClick={() =>
             dispatch(openModal({ type: "project", payload: null }))
           }
@@ -46,86 +46,93 @@ export default function ProjectAdminPage() {
         </Button>
       </div>
 
+      {/* GRID */}
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-gray-500">Loading...</p>
       ) : (
-        /* GRID LAYOUT */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {data.map((item) => (
             <div
               key={item.id}
-              className="border rounded-xl bg-white shadow-sm hover:shadow-md transition p-4 flex flex-col"
+              className="group relative rounded-2xl overflow-hidden bg-white/40 backdrop-blur-xl border border-white/50 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
             >
               {/* IMAGE */}
               {item.image && (
-                <img
-                  src={item.image}
-                  className="w-full h-40 object-cover rounded-lg mb-3"
-                />
+                <div className="overflow-hidden">
+                  <img
+                    src={item.image}
+                    className="w-full h-44 object-cover group-hover:scale-105 transition duration-300"
+                  />
+                </div>
               )}
 
-              {/* TITLE */}
-              <h2 className="text-lg font-semibold">{item.title}</h2>
+              {/* CONTENT */}
+              <div className="p-5 flex flex-col flex-1">
+                {/* TITLE */}
+                <h2 className="text-lg font-semibold mb-2">{item.title}</h2>
 
-              {/* DESCRIPTION */}
-              <p className="text-sm text-gray-600 mt-1 line-clamp-3">
-                {item.description}
-              </p>
+                {/* DESCRIPTION */}
+                <p className="text-sm text-gray-600 line-clamp-3 flex-1">
+                  {item.description}
+                </p>
 
-              {/* LINKS */}
-              <div className="mt-2 text-sm space-y-1">
-                {item.repo_link && (
-                  <a
-                    href={item.repo_link}
-                    target="_blank"
-                    className="text-blue-500 underline block"
+                {/* LINKS */}
+                <div className="mt-4 space-y-1 text-sm">
+                  {item.repo_link && (
+                    <a
+                      href={item.repo_link}
+                      target="_blank"
+                      className="text-blue-500 hover:text-blue-600 transition block"
+                    >
+                      GitHub
+                    </a>
+                  )}
+
+                  {item.demo_link && (
+                    <a
+                      href={item.demo_link}
+                      target="_blank"
+                      className="text-green-500 hover:text-green-600 transition block"
+                    >
+                      Live Demo
+                    </a>
+                  )}
+                </div>
+
+                {/* ACTIONS */}
+                <div className="flex justify-end gap-3 mt-5 pt-4 border-t border-white/30">
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        openModal({
+                          type: "project",
+                          payload: item,
+                        }),
+                      )
+                    }
+                    className="px-5 py-2.5 text-sm rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition shadow-sm"
                   >
-                    GitHub
-                  </a>
-                )}
+                    Edit
+                  </button>
 
-                {item.demo_link && (
-                  <a
-                    href={item.demo_link}
-                    target="_blank"
-                    className="text-green-500 underline block"
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        openModal({
+                          type: "confirm",
+                          payload: {
+                            onConfirm: () => handleDelete(item.id),
+                            message:
+                              "Do you really want to delete this project?",
+                          },
+                        }),
+                      )
+                    }
+                    className="px-5 py-2.5 text-sm rounded-xl bg-red-500 text-white hover:bg-red-600 transition shadow-sm"
                   >
-                    Live Demo
-                  </a>
-                )}
-              </div>
-
-              {/* ACTIONS */}
-              <div className="flex justify-end gap-2 mt-auto pt-4">
-                <Button
-                  onClick={() =>
-                    dispatch(
-                      openModal({
-                        type: "project",
-                        payload: item,
-                      }),
-                    )
-                  }
-                  handelStye="px-3 py-1 bg-blue-500 text-white rounded"
-                >
-                  Edit
-                </Button>
-
-                <Button
-                  onClick={() =>
-                    dispatch(
-                      openModal({
-                        type: "confirm",
-                        payload: {
-                          onConfirm: () => handleDelete(item.id),
-                        },
-                      }),
-                    )
-                  }
-                  handelStye="px-3 py-1 bg-red-500 text-white rounded"
-                >
-                  Delete
-                </Button>
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}

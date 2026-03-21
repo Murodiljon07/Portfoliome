@@ -30,12 +30,13 @@ export default function ExperienceAdminPage() {
   };
 
   return (
-    <div>
-      <div className="flex justify-between mb-4">
-        <h1 className="text-xl font-semibold">Experiences</h1>
+    <div className="space-y-8">
+      {/* HEADER */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-semibold tracking-tight">Experiences</h1>
 
         <Button
-          handelStye="w-[80px]"
+          handelStye="px-5 py-2.5 text-sm"
           variant="primary"
           onClick={() =>
             dispatch(openModal({ type: "experience", payload: null }))
@@ -45,66 +46,88 @@ export default function ExperienceAdminPage() {
         </Button>
       </div>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <table className="w-full border border-gray-300 bg-white">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-2 border">Role</th>
-              <th className="p-2 border">Company</th>
-              <th className="p-2 border">Start</th>
-              <th className="p-2 border">End</th>
-              <th className="p-2 border">Actions</th>
+      {/* TABLE CONTAINER */}
+      <div className="rounded-2xl overflow-hidden bg-white/40 backdrop-blur-xl border border-white/50 shadow-sm">
+        <table className="w-full text-base">
+          {/* HEADER */}
+          <thead className="bg-white/60 border-b border-white/40">
+            <tr className="text-left text-gray-600">
+              <th className="p-6">Role</th>
+              <th className="p-6">Company</th>
+              <th className="p-6">Start</th>
+              <th className="p-6">End</th>
+              <th className="p-6 text-center">Actions</th>
             </tr>
           </thead>
 
+          {/* BODY */}
           <tbody>
-            {data.map((item) => (
-              <tr key={item.id} className="text-center">
-                <td className="p-2 border">{item.role}</td>
-                <td className="p-2 border">{item.company}</td>
-                <td className="p-2 border">{item.start_date}</td>
-                <td className="p-2 border">{item.end_date || "-"}</td>
-
-                <td className="p-2 border">
-                  <div className="flex justify-center gap-2">
-                    <Button
-                      onClick={() =>
-                        dispatch(
-                          openModal({
-                            type: "experience",
-                            payload: item,
-                          }),
-                        )
-                      }
-                      handelStye="px-3 py-1 bg-blue-500 text-white rounded"
-                    >
-                      Edit
-                    </Button>
-
-                    <Button
-                      onClick={() =>
-                        dispatch(
-                          openModal({
-                            type: "confirm",
-                            payload: {
-                              onConfirm: () => handleDelete(item.id),
-                            },
-                          }),
-                        )
-                      }
-                      handelStye="px-3 py-1 bg-red-500 text-white rounded"
-                    >
-                      Delete
-                    </Button>
-                  </div>
+            {loading ? (
+              <tr>
+                <td colSpan={5} className="text-center p-10 text-gray-500">
+                  Loading...
                 </td>
               </tr>
-            ))}
+            ) : (
+              data.map((item) => (
+                <tr
+                  key={item.id}
+                  className="border-b border-white/30 hover:bg-white/50 transition"
+                >
+                  {/* ROLE */}
+                  <td className="p-6 font-medium">{item.role}</td>
+
+                  {/* COMPANY */}
+                  <td className="p-6 text-gray-700">{item.company}</td>
+
+                  {/* START */}
+                  <td className="p-6 text-gray-600">{item.start_date}</td>
+
+                  {/* END */}
+                  <td className="p-6 text-gray-600">{item.end_date || "-"}</td>
+
+                  {/* ACTIONS */}
+                  <td className="p-6">
+                    <div className="flex justify-center gap-4">
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            openModal({
+                              type: "experience",
+                              payload: item,
+                            }),
+                          )
+                        }
+                        className="px-5 py-2.5 text-sm rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition shadow-sm"
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            openModal({
+                              type: "confirm",
+                              payload: {
+                                onConfirm: () => handleDelete(item.id),
+                                message:
+                                  "Do you really want to delete this experience?",
+                              },
+                            }),
+                          )
+                        }
+                        className="px-5 py-2.5 text-sm rounded-xl bg-red-500 text-white hover:bg-red-600 transition shadow-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
-      )}
+      </div>
     </div>
   );
 }

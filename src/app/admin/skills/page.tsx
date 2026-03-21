@@ -30,13 +30,13 @@ export default function SkillAdminPage() {
   };
 
   return (
-    <div>
+    <div className="space-y-8">
       {/* HEADER */}
-      <div className="flex justify-between mb-6">
-        <h1 className="text-xl font-semibold">Skills</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-semibold tracking-tight">Skills</h1>
 
         <Button
-          handelStye="w-[80px]"
+          handelStye="px-5 py-2.5 text-sm"
           variant="primary"
           onClick={() => dispatch(openModal({ type: "skill", payload: null }))}
         >
@@ -45,29 +45,31 @@ export default function SkillAdminPage() {
       </div>
 
       {/* GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 overflow-auto">
         {loading ? (
-          <p>Loading...</p>
+          <p className="text-gray-500">Loading...</p>
         ) : (
           data.map((item) => (
             <div
               key={item.id}
-              className="bg-white border rounded-2xl p-5 shadow-sm hover:shadow-lg transition relative overflow-hidden"
+              className="group relative rounded-2xl p-5 bg-white/40 backdrop-blur-xl border border-white/50 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
             >
-              {/* TOP SECTION */}
+              {/* HEADER */}
               <div className="flex items-center gap-4">
+                {/* ICON */}
                 {item.icon && (
-                  <img
-                    src={item.icon}
-                    className="w-14 h-14 object-cover rounded-lg"
-                  />
+                  <div className="w-14 h-14 rounded-xl overflow-hidden bg-white/60 flex items-center justify-center shadow-sm">
+                    <img src={item.icon} className="w-10 h-10 object-contain" />
+                  </div>
                 )}
 
+                {/* INFO */}
                 <div className="flex-1">
                   <h2 className="font-semibold text-lg">{item.name}</h2>
                   <p className="text-sm text-gray-500">Order: {item.order}</p>
                 </div>
 
+                {/* PERCENT */}
                 <div className="text-right">
                   <span className="text-xl font-bold text-blue-600">
                     {item.percentage}%
@@ -75,44 +77,50 @@ export default function SkillAdminPage() {
                 </div>
               </div>
 
-              {/* STACKED PROGRESS */}
-              <div className="mt-5 h-4 bg-gray-200 rounded-full overflow-hidden">
+              {/* PROGRESS */}
+              <div className="mt-6 h-3 bg-gray-200/70 rounded-full overflow-hidden">
                 <div
-                  className="h-4 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 transition-all duration-500"
+                  className="h-3 rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 transition-all duration-500"
                   style={{ width: `${item.percentage}%` }}
                 />
               </div>
 
               {/* ACTIONS */}
-              <div className="flex justify-end gap-2 mt-5">
-                <Button
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/30">
+                <button
                   onClick={() =>
-                    dispatch(openModal({ type: "skill", payload: item }))
+                    dispatch(
+                      openModal({
+                        type: "skill",
+                        payload: item,
+                      }),
+                    )
                   }
-                  handelStye="px-3 py-1 bg-blue-500 text-white rounded"
+                  className="px-5 py-2.5 text-sm rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition shadow-sm"
                 >
                   Edit
-                </Button>
+                </button>
 
-                <Button
+                <button
                   onClick={() =>
                     dispatch(
                       openModal({
                         type: "confirm",
                         payload: {
                           onConfirm: () => handleDelete(item.id),
+                          message: "Do you really want to delete this skill?",
                         },
                       }),
                     )
                   }
-                  handelStye="px-3 py-1 bg-red-500 text-white rounded"
+                  className="px-5 py-2.5 text-sm rounded-xl bg-red-500 text-white hover:bg-red-600 transition shadow-sm"
                 >
                   Delete
-                </Button>
+                </button>
               </div>
 
-              {/* DECORATIVE BACKGROUND */}
-              <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-100 rounded-full blur-2xl opacity-50" />
+              {/* DECORATION */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100/40 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition" />
             </div>
           ))
         )}
