@@ -48,15 +48,6 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
     }
   };
 
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-    });
-  };
-
   const handleSubmit = async () => {
     setLoading(true);
 
@@ -70,8 +61,6 @@ export default function AboutForm({ initialData, onSuccess }: Props) {
 
       if (imageFile) {
         formData.append("image", imageFile);
-      } else {
-        formData.append("image", form.image); // eski rasm
       }
 
       if (initialData) {

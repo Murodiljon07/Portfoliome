@@ -102,7 +102,7 @@ export default function DashboardPage() {
         <div className="rounded-2xl p-5 bg-white/40 backdrop-blur-xl border border-white/50 shadow-sm transition hover:shadow-lg">
           <h2 className="font-semibold mb-4">Recent Projects</h2>
 
-          <div className="space-y-3">
+          <div className="space-y-3 overflow-scroll">
             {projects.slice(0, 5).map((p) => (
               <div
                 key={p.id}

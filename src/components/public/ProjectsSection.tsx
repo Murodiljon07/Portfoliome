@@ -38,73 +38,86 @@ export default function ProjectsSection() {
 
         {/* GRID */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, i) => (
-            <div
-              key={project.id}
-              className="group relative rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-              style={{
-                animationDelay: `${i * 0.1}s`,
-              }}
-            >
-              {/* IMAGE */}
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                />
-              </div>
+          {projects.map((project, i) => {
+            let {
+              demo_link,
+              description,
+              id,
+              image,
+              order,
+              repo_link,
+              technologies,
+              title,
+            } = project;
 
-              {/* CONTENT */}
-              <div className="p-5 space-y-3">
-                <h3 className="text-xl font-semibold line-clamp-1">
-                  {project.title}
-                </h3>
-
-                <p className="text-gray-600 text-sm line-clamp-3">
-                  {project.description}
-                </p>
-
-                {/* TECH */}
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies?.split(",").map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs px-2 py-1 bg-black/5 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+            return (
+              <div
+                key={id}
+                className="group relative rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+                style={{
+                  animationDelay: `${i * 0.1}s`,
+                }}
+              >
+                {/* IMAGE */}
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={image}
+                    alt={title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                  />
                 </div>
 
-                {/* ACTIONS */}
-                <div className="flex gap-3 pt-2">
-                  {project.demo_link && (
-                    <a
-                      href={project.demo_link}
-                      target="_blank"
-                      className="px-4 py-2 text-sm rounded-full bg-black text-white hover:bg-red-500 transition"
-                    >
-                      Live
-                    </a>
-                  )}
+                {/* CONTENT */}
+                <div className="p-5 space-y-3">
+                  <h3 className="text-xl font-semibold line-clamp-1">
+                    {title}
+                  </h3>
 
-                  {project.repo_link && (
-                    <a
-                      href={project.repo_link}
-                      target="_blank"
-                      className="px-4 py-2 text-sm rounded-full border border-black hover:bg-black hover:text-white transition"
-                    >
-                      Code
-                    </a>
-                  )}
+                  <p className="text-gray-600 text-sm line-clamp-3">
+                    {description}
+                  </p>
+
+                  {/* TECH */}
+                  <div className="flex flex-wrap gap-2">
+                    {technologies?.split(",").map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs px-2 py-1 bg-black/5 rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* ACTIONS */}
+                  <div className="flex gap-3 pt-2">
+                    {demo_link && (
+                      <a
+                        href={demo_link}
+                        target="_blank"
+                        className="cursor-pointer px-4 py-2 text-sm rounded-full bg-black text-white hover:bg-red-500 transition"
+                      >
+                        Live
+                      </a>
+                    )}
+
+                    {repo_link && (
+                      <a
+                        href={repo_link}
+                        target="_blank"
+                        className="cursor-pointer px-4 py-2 text-sm rounded-full border border-black hover:bg-black hover:text-white transition"
+                      >
+                        Code
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* HOVER OVERLAY */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition" />
-            </div>
-          ))}
+                {/* HOVER OVERLAY */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition" />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

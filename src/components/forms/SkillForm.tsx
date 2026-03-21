@@ -58,8 +58,6 @@ export default function SkillForm({ initialData, onSuccess }: Props) {
 
       if (iconFile) {
         formData.append("icon", iconFile);
-      } else {
-        formData.append("icon", form.icon);
       }
 
       if (initialData) {

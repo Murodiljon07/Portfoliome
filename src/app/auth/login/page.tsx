@@ -62,6 +62,10 @@ export default function LoginPage() {
 
       // success -> dashboard
       router.push("/admin/dashboard");
+
+      setTimeout(() => {
+        authService.logout();
+      }, 90000);
     } catch (err: any) {
       setError({
         ...newError,

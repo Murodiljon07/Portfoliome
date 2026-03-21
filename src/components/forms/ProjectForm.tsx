@@ -65,8 +65,6 @@ export default function ProjectForm({ initialData, onSuccess }: Props) {
 
       if (imageFile) {
         formData.append("image", imageFile);
-      } else {
-        formData.append("image", form.image);
       }
 
       if (initialData) {

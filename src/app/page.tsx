@@ -6,11 +6,15 @@ import Skills from "@/components/public/SkillsSection";
 import Contact from "@/components/public/ContactSection";
 import Footer from "@/components/layout/Footer";
 import ExperienceSection from "@/components/public/Experience";
+import FloatingWeather from "@/components/ui/FloatingWeather";
 
 function page() {
   return (
     <>
-      <Navbar />
+      <header>
+        <Navbar />
+        <FloatingWeather />
+      </header>
       <main>
         <Hero />
         <Projects />
