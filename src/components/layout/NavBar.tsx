@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { paths } from "@/data/pathData";
 import avatar from "@/data/me/avatar.jpg";
@@ -10,7 +9,14 @@ import avatar from "@/data/me/avatar.jpg";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    const updateHash = () => setHash(window.location.hash.replace("#", ""));
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,8 +56,8 @@ export default function Navbar() {
             const Icon = item.icon;
             if (item.admin) return null;
 
-            const isActive = pathname === `/${item.href}`;
-
+            // Keyin:
+            const isActive = hash === item.href;
             return (
               <Link
                 key={i}

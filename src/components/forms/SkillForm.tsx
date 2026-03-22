@@ -86,16 +86,10 @@ export default function SkillForm({ initialData, onSuccess }: Props) {
 
         <label className="block cursor-pointer w-fit mt-2">
           {iconFile || form.icon ? (
-            <div className="relative w-24 h-24">
-              <img
-                src={iconFile ? URL.createObjectURL(iconFile) : form.icon}
-                className="w-24 h-24 object-cover rounded"
-              />
-
-              <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 flex items-center justify-center text-white text-xs rounded transition">
-                Change
-              </div>
-            </div>
+            <img
+              src={iconFile ? URL.createObjectURL(iconFile) : form.icon}
+              className="w-20 h-20 object-cover rounded"
+            />
           ) : (
             <div className="w-20 h-20 flex items-center justify-center border-2 border-dashed rounded text-gray-400 text-xs">
               Upload

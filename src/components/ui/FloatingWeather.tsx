@@ -6,7 +6,6 @@ export default function FloatingWeather() {
   const [time, setTime] = useState("");
   const [temp, setTemp] = useState<number | null>(null);
 
-  // ⏰ TIME
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
@@ -23,7 +22,6 @@ export default function FloatingWeather() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🌤 WEATHER
   useEffect(() => {
     const fetchWeather = async () => {
       try {
