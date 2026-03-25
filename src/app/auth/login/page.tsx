@@ -77,7 +77,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white px-4">
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 text-black">
       <div className="w-full max-w-md border rounded-2xl p-8 shadow-sm">
         <div className="text-center mb-6">
           <Button
