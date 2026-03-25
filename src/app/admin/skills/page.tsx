@@ -107,6 +107,7 @@ export default function SkillAdminPage() {
                       openModal({
                         type: "confirm",
                         payload: {
+                          item: null,
                           onConfirm: () => handleDelete(item.id),
                           message: "Do you really want to delete this skill?",
                         },
