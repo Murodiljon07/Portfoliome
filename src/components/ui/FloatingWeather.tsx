@@ -44,10 +44,12 @@ export default function FloatingWeather() {
 
   return (
     <div className="fixed top-24 right-6 z-40 animate-float">
-      <div className="px-5 py-3 rounded-2xl backdrop-blur-xl bg-white/40 border border-white/30 shadow-xl flex items-center gap-4 hover:scale-105 transition">
+      <div className="px-5 py-3 rounded-2xl backdrop-blur-xl bg-white/40 border border-white/30 shadow-xl flex items-center gap-4 hover:scale-105 transition text-black">
         {/* 🌤 TEMP */}
         <div className="text-lg font-semibold">
-          {temp !== null ? `🌤 ${temp}°C` : "⏳"}
+          {temp !== null
+            ? `${temp >= 10 ? `🌤 ${temp}` : `🥶 ${temp}`} °C`
+            : "⏳"}
         </div>
 
         {/* ⏰ TIME */}
