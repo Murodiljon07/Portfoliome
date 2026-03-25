@@ -41,7 +41,7 @@ export default function Navbar() {
         w-[95%] max-w-5xl`}
       >
         {/* LEFT */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 text-black">
           <img
             src={avatar.src}
             className="w-9 h-9 rounded-full object-cover ring-2 ring-black/10"
@@ -51,7 +51,7 @@ export default function Navbar() {
         </div>
 
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-6 ">
           {paths.map((item, i) => {
             const Icon = item.icon;
             if (item.admin) return null;
@@ -64,7 +64,7 @@ export default function Navbar() {
                 href={`#${item.href}`}
                 className="relative group flex items-center gap-1 text-sm"
               >
-                <Icon className="w-4 h-4 opacity-60 group-hover:opacity-100 transition" />
+                <Icon className="w-4 h-4 opacity-60 group-hover:opacity-100 transition text-black" />
 
                 <span
                   className={`transition ${

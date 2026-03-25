@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { STORAGE_KEYS } from "@/interface/constants";
 
+const NEXT_BASE_URL = process.env.NEXT_BASE_URL;
+
 const api: AxiosInstance = axios.create({
   baseURL: "https://cemare5406.pythonanywhere.com/",
 });
